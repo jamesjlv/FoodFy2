@@ -1,0 +1,24 @@
+{% extends './layout.njk' %}
+{% block pageName %}
+    Chefs
+{% endblock pageName %}
+{% block content %}
+    <div class="content">
+        <div class="cards chefs">
+            {% for chef in chefs %}
+                <div class="card" id="{{ chef.id }}">
+                    <div class="chefImage">
+                        <img src="{{ chef.avatar_url }}" alt="{{ chef.name }}"></div>
+                        <div class="chefInfo">
+                            <p class="nameChef">
+                                {{ chef.name }}
+                            </p>
+                            <p class="qtdRecipes">
+                                {{ chef.total_recipes }} receitas
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
