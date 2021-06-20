@@ -35,7 +35,6 @@ module.exports = {
     try {
       const query = `
             INSERT INTO recipes(
-                image,
                 title,
                 ingredients,
                 preparation,
@@ -43,11 +42,10 @@ module.exports = {
                 chef_id,
                 created_at
             ) values (
-                $1, $2, $3, $4, $5,$6, NOW()
+                $1, $2, $3, $4, $5, NOW()
             ) RETURNING ID
             `;
       const data = [
-        recipe.image,
         recipe.title,
         recipe.ingredients,
         recipe.preparation,
@@ -79,15 +77,13 @@ module.exports = {
     try {
       const query = `
             UPDATE recipes SET
-                image = $1,
-                title = $2,
-                ingredients = $3,
-                preparation = $4,
-                information = $5
-                WHERE id = $6
+                title = $1,
+                ingredients = $2,
+                preparation = $3,
+                information = $4
+                WHERE id = $5
             `;
       const data = [
-        recipe.image,
         recipe.title,
         recipe.ingredients,
         recipe.preparation,
@@ -119,6 +115,20 @@ module.exports = {
       );
 
       return results.rows;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  async images(id) {
+    try {
+      const query = `SELECT files.*, recipe_files.id AS recipeFileId FROM files
+      LEFT JOIN recipe_files ON ( recipe_files.file_id = files.id)
+      WHERE recipe_files.recipe_id = $1`;
+
+      const recipeId = [id];
+      const images = await db.query(query, recipeId);
+
+      return images.rows;
     } catch (err) {
       console.log(err);
     }

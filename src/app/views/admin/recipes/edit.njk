@@ -7,10 +7,10 @@
                 <input type="submit" form="delete" class="buttonDelete" value="Excluir">
                     <input type="submit" form="form" class="button" value="Salvar receita"></div>
                 </div>
-                <form id="form" method="post" action="/admin/recipes?_method=PUT">
+                <form id="form" method="post" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
                     {% include './fields.njk' %}
                     <input type="hidden" name="id" value="{{ recipe.id }}"></form>
-                    <form id="delete" method="post" action="/admin/recipes?_method=delete">
+                    <form id="delete" method="post" action="/admin/recipes?_method=delete" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{{ recipe.id }}"></form>
                     </div>
                 {% endblock content %}
