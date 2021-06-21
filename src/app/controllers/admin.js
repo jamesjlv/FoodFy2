@@ -129,6 +129,14 @@ module.exports = {
   async delete(req, res) {
     try {
       const { id } = req.body;
+      const images = await Recipe.images(id);
+
+      const imagesPromise = images.map((image) => {
+        File.delete(Number(image.id));
+      });
+
+      Promise.all(imagesPromise);
+
       await Recipe.delete(id);
       return res.redirect("/admin/recipes");
     } catch (err) {
