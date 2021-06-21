@@ -7,7 +7,11 @@
         </div>
         <div class="chef">
             <div class="chefAvatar">
-                <img src="{{ chef.avatar_url }}" alt="{{ chef.name }}"></div>
+                {% if not chef.path %}
+                    <img src="https://place-hold.it/300x100?text=Sem%20Imagem" alt="Sem imagem"></div>
+                {% else %}
+                    <img src="{{ chef.path }}" alt="{{ recipe.title }}"></div>
+                {% endif %}
                 <div class="chefAdminInfo">
                     <h1 class="chefName">{{ chef.name }}</h1>
                     <p class="chefRecipes">
@@ -21,7 +25,11 @@
                         {% for recipe in recipes %}
                             <div class="card" id="{{ recipe.id }}">
                                 <div class="cardImage">
-                                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}"></div>
+                                    {% if not recipe.images[0] %}
+                                        <img src="https://place-hold.it/300x100?text=Sem%20Imagem" alt="Sem imagem"></div>
+                                    {% else %}
+                                        <img src="{{ recipe.images[0].src }}" alt="{{ recipe.title }}"></div>
+                                    {% endif %}
                                     <div class="cardInfo">
                                         <p class="nameRecipe">
                                             {{ recipe.title }}

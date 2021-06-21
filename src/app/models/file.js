@@ -38,4 +38,38 @@ module.exports = {
       console.log(err);
     }
   },
+  async chefCreate(data) {
+    try {
+      const query = `INSERT INTO files(
+                name, 
+                path) 
+                VALUES (
+                $1, 
+                $2) RETURNING id`;
+      let file = [data.filename, data.path];
+      const results = await db.query(query, file);
+      return results.rows[0].id;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  async chefDelete(id) {
+    try {
+      const chef = await db.query(`SELECT * FROM chefs WHERE id=${id}`);
+      if (chef.rows[0].file_id) {
+        const files = await db.query(
+          `SELECT * from files where id='${chef.rows[0].file_id}'`
+        );
+
+        fs.unlinkSync(files.rows[0].path);
+
+        const results = await db.query(
+          `DELETE FROM files WHERE id=${files.rows[0].id}`
+        );
+      }
+      return;
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };

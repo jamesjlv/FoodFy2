@@ -102,3 +102,11 @@ const PhotosUpload = {
     photoDiv.remove();
   },
 };
+
+const cards = document.querySelectorAll(".card");
+
+for (let card of cards) {
+  card.addEventListener("click", () => {
+    window.location.href = `/recipe/${card.id}`;
+  });
+}

@@ -1,4 +1,6 @@
 const Chef = require("../models/chef");
+const Recipe = require("../models/recipe");
+const File = require("../models/file");
 
 module.exports = {
   async index(req, res) {
@@ -18,9 +20,27 @@ module.exports = {
   },
   async show(req, res) {
     try {
-      const chef = await Chef.find(req.params.id);
+      let chef = await Chef.find(req.params.id);
       const recipes = await Chef.chefRecipes(req.params.id);
+      const images = recipes.map(async (recipe, index) => {
+        recipes[index].images = await Recipe.images(recipe.id);
+      });
 
+      await Promise.all(images);
+
+      for (let recipe of recipes) {
+        recipe.images.map((image) => {
+          image.src = `${req.protocol}://${
+            req.headers.host
+          }${image.path.replace("public", "")}`;
+        });
+      }
+      if (chef.path) {
+        chef.path = `${req.protocol}://${req.headers.host}${chef.path.replace(
+          "public",
+          ""
+        )}`;
+      }
       return res.render("admin/chefs/show", { chef, recipes });
     } catch (err) {
       console.log(err);
@@ -37,6 +57,8 @@ module.exports = {
   },
   async post(req, res) {
     try {
+      const fileId = await File.chefCreate({ ...req.files[0] });
+      req.body.fileId = fileId;
       const chefId = await Chef.create(req.body);
       return res.redirect(`/admin/chefs/${chefId}`);
     } catch (err) {
@@ -46,6 +68,10 @@ module.exports = {
   async put(req, res) {
     try {
       const { id } = req.body;
+      if (req.files) {
+        const fileId = await File.chefCreate({ ...req.files[0] });
+        req.body.fileId = fileId;
+      }
       const chefId = await Chef.update(req.body);
       return res.redirect(`/admin/chefs/${id}`);
     } catch (err) {
@@ -55,6 +81,7 @@ module.exports = {
   async delete(req, res) {
     try {
       const { id } = req.body;
+      await File.chefDelete(id);
       await Chef.delete(id);
       return res.redirect("/admin/chefs");
     } catch (err) {

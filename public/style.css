@@ -535,3 +535,22 @@ button.link {
   margin: 0;
   color: #777777;
 }
+
+/* Chef Avatar */
+
+.upload_chef {
+  position: relative;
+  width: 13rem;
+  height: 3.7rem;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+}
+
+.upload_chef p {
+  position: absolute;
+  color: white;
+  font-weight: normal;
+}

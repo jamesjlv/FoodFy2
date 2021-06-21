@@ -36,13 +36,13 @@ module.exports = {
       const query = `
             INSERT INTO chefs(
                 name,
-                avatar_url,
+                file_id,
                 created_at             
             ) values (
                 $1, $2, NOW()
             ) RETURNING ID
             `;
-      const data = [chef.name, chef.avatar_url];
+      const data = [chef.name, chef.fileId];
 
       const results = await db.query(query, data);
 
@@ -54,8 +54,10 @@ module.exports = {
   async find(id) {
     try {
       const results = await db.query(`SELECT chefs.*,
-      (SELECT COUNT(*) FROM RECIPES WHERE CHEFS.ID = RECIPES.CHEF_ID) AS TOTAL_RECIPES 
-      FROM chefs 
+      (SELECT COUNT(*) FROM RECIPES WHERE CHEFS.ID = RECIPES.CHEF_ID) AS TOTAL_RECIPES ,
+      files.path, files.id as fileId FROM chefs
+LEFT JOIN files ON (files.id = chefs.file_id)
+
       WHERE chefs.id=${id}
       ORDER BY name
       
@@ -65,15 +67,26 @@ module.exports = {
       console.log(err);
     }
   },
-  async update(recipe) {
+  async update(chef) {
     try {
-      const query = `
-            UPDATE chefs SET
-                name = $1,
-                avatar_url = $2
-                WHERE id = $3
-            `;
-      const data = [recipe.name, recipe.avatar_url, recipe.id];
+      let query = ``;
+      let data = [];
+      if (chef.fileId) {
+        query = `
+              UPDATE chefs SET
+                  name = $1,
+                  file_id = $2
+                  WHERE id = $3
+              `;
+        data = [chef.name, chef.fileId, chef.id];
+      } else {
+        query = `
+              UPDATE chefs SET
+                  name = $1
+                  WHERE id = $2
+              `;
+        data = [chef.name, chef.id];
+      }
 
       const results = await db.query(query, data);
 
