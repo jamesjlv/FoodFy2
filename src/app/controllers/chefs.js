@@ -6,6 +6,14 @@ module.exports = {
   async index(req, res) {
     try {
       const chefs = await Chef.chefsAll();
+      for (let chef of chefs) {
+        if (chef.path) {
+          chef.path = `${req.protocol}://${req.headers.host}${chef.path.replace(
+            "public",
+            ""
+          )}`;
+        }
+      }
       return res.render("admin/chefs/index", { chefs });
     } catch (err) {
       console.log(err);
@@ -81,8 +89,11 @@ module.exports = {
   async delete(req, res) {
     try {
       const { id } = req.body;
-      await File.chefDelete(id);
+      const chef = await Chef.find(id);
       await Chef.delete(id);
+      if (chef.file_id) {
+        await File.chefDelete(chef.file_id);
+      }
       return res.redirect("/admin/chefs");
     } catch (err) {
       console.log(err);

@@ -71,7 +71,14 @@ module.exports = {
   async chefs(req, res) {
     try {
       const chefs = await Recipe.chefsAll();
-
+      for (let chef of chefs) {
+        if (chef.path) {
+          chef.path = `${req.protocol}://${req.headers.host}${chef.path.replace(
+            "public",
+            ""
+          )}`;
+        }
+      }
       return res.render("recipes/chefs", { chefs });
     } catch (err) {
       console.log(err);

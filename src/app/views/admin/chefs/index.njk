@@ -8,7 +8,11 @@
             {% for chef in chefs %}
                 <div class="card" id="{{ chef.id }}">
                     <div class="chefImage">
-                        <img src="{{ chef.avatar_url }}" alt="{{ chef.name }}"></div>
+                        {% if not chef.path %}
+                            <img src="https://place-hold.it/300x100?text=Sem%20Imagem" alt="Sem imagem"></div>
+                        {% else %}
+                            <img src="{{ chef.path }}" alt="{{ recipe.title }}"></div>
+                        {% endif %}
                         <div class="chefInfo">
                             <p class="nameChef">
                                 {{ chef.name }}

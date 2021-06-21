@@ -55,18 +55,14 @@ module.exports = {
   },
   async chefDelete(id) {
     try {
-      const chef = await db.query(`SELECT * FROM chefs WHERE id=${id}`);
-      if (chef.rows[0].file_id) {
-        const files = await db.query(
-          `SELECT * from files where id='${chef.rows[0].file_id}'`
-        );
+      const files = await db.query(`SELECT * from files where id='${id}'`);
 
-        fs.unlinkSync(files.rows[0].path);
+      fs.unlinkSync(files.rows[0].path);
 
-        const results = await db.query(
-          `DELETE FROM files WHERE id=${files.rows[0].id}`
-        );
-      }
+      const results = await db.query(
+        `DELETE FROM files WHERE id=${files.rows[0].id}`
+      );
+
       return;
     } catch (err) {
       console.log(err);

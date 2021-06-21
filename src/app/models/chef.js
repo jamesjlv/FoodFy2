@@ -108,7 +108,13 @@ LEFT JOIN files ON (files.id = chefs.file_id)
   async chefsAll() {
     try {
       const results = await db.query(
-        "SELECT chefs.*, (SELECT COUNT(*) FROM RECIPES WHERE CHEFS.ID = RECIPES.CHEF_ID) AS TOTAL_RECIPES  FROM chefs ORDER BY name"
+        `SELECT chefs.*, (SELECT COUNT(*) 
+        FROM RECIPES 
+        WHERE CHEFS.ID = RECIPES.CHEF_ID) AS TOTAL_RECIPES ,
+        files.path
+FROM chefs 
+LEFT JOIN files ON (files.id =file_id)
+ORDER BY name `
       );
 
       return results.rows;

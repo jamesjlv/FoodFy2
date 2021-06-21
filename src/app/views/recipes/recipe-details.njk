@@ -6,45 +6,51 @@
   <div class="content">
     <div class="recipe">
       <div class="recipeImage">
-        <img src="{{ recipe.images[0].src }}" alt="{{ recipe.title }}"></div>
-        <div class="recipeInfo">
-          <h1 class="title">{{ recipe.title }}</h1>
-          <p class="author">por {{ recipe.author }}</p>
+        <img src="{{ recipe.images[0].src }}" alt="{{ recipe.title }}"/>
+        <div class="miniPhotos">
+          {% for image in recipe.images %}
+            <img src="{{ image.src }}" {% if loop.index0 == 0 %} class='activeImage' {% endif %} alt="{{ recipe.title }}" onclick="ImageGallery.setImage(event)"/>
+          {% endfor %}
         </div>
       </div>
-      <section class="ingredient">
-        <div class="legend">
-          <h2>Ingredientes</h2>
-          <span class="showAndHide">Esconder</span>
-        </div>
-        <div class="sectionContent">
-          <ul>
-            {% for ingredient in recipe.ingredients %}
-              <li>{{ ingredient }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </section>
-      <section class="howToPrepare">
-        <div class="legend">
-          <h2>Modo de preparo</h2>
-          <span class="showAndHide">Esconder</span>
-        </div>
-        <div class="sectionContent">
-          <p>{{ recipe.preparation }}</p>
-        </div>
-      </section>
-      <section class="aditionalInfo">
-        <div class="legend">
-          <h2>Informações adicionais</h2>
-          <span class="showAndHide">Esconder</span>
-        </div>
-        <div class="sectionContent">
-          <p>{{ recipe.information }}</p>
-        </div>
-      </section>
+      <div class="recipeInfo">
+        <h1 class="title">{{ recipe.title }}</h1>
+        <p class="author">por {{ recipe.author }}</p>
+      </div>
     </div>
-  {% endblock %}
-  {% block scripts %}
-    <script src="/recipeShowAndHide.js"></script>
-  {% endblock %}
+    <section class="ingredient">
+      <div class="legend">
+        <h2>Ingredientes</h2>
+        <span class="showAndHide">Esconder</span>
+      </div>
+      <div class="sectionContent">
+        <ul>
+          {% for ingredient in recipe.ingredients %}
+            <li>{{ ingredient }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+    <section class="howToPrepare">
+      <div class="legend">
+        <h2>Modo de preparo</h2>
+        <span class="showAndHide">Esconder</span>
+      </div>
+      <div class="sectionContent">
+        <p>{{ recipe.preparation }}</p>
+      </div>
+    </section>
+    <section class="aditionalInfo">
+      <div class="legend">
+        <h2>Informações adicionais</h2>
+        <span class="showAndHide">Esconder</span>
+      </div>
+      <div class="sectionContent">
+        <p>{{ recipe.information }}</p>
+      </div>
+    </section>
+  </div>
+{% endblock %}
+{% block scripts %}
+  <script src="/recipeShowAndHide.js"></script>
+{% endblock %}

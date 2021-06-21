@@ -110,3 +110,17 @@ for (let card of cards) {
     window.location.href = `/recipe/${card.id}`;
   });
 }
+
+const ImageGallery = {
+  highlight: document.querySelector(".recipeImage > img"),
+  previews: document.querySelectorAll(".miniPhotos img"),
+  setImage(e) {
+    const { target } = e;
+    ImageGallery.previews.forEach((preview) => {
+      preview.classList.remove("activeImage");
+    });
+    target.classList.add("activeImage");
+
+    ImageGallery.highlight.src = target.src;
+  },
+};
