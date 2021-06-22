@@ -23,6 +23,7 @@ module.exports = {
       LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
       ${queryFilter}
       ${queryLimit}
+      ORDER BY created_at
       `;
 
       const results = await db.query(query);
@@ -117,7 +118,7 @@ module.exports = {
         files.path
 FROM chefs 
 LEFT JOIN files ON (files.id =file_id)
-ORDER BY name `
+ORDER BY created_at `
       );
 
       return results.rows;
