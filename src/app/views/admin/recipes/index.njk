@@ -1,10 +1,11 @@
 {% extends '../layout.njk' %}
+{% import '../../parts/card.njk' as card %}
 {% block content %}
-    <div class="content admin">
-        <div class="info">
-            <h1>Gerenciar receitas</h1>
-            <a href="/admin/recipes/create" class="button">Nova Receita</a>
-        </div>
+    {% call card.render('Gerenciar Receitas ') %}
+    <div class="buttonsPages">
+        <a href="/admin/recipes/create" class="button submit">Nova Receita</a>
+    </div>
+    <div class="content">
         <div class="cards admin">
             {% for recipe in recipes %}
                 <div class="card" id="{{ recipe.id }}">
@@ -27,4 +28,5 @@
                 {% endfor %}
             </div>
         </div>
+        {% endcall %}
     {% endblock content %}

@@ -1,0 +1,95 @@
+/* Chefs Grid */
+
+.cards.chefs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 1.6rem;
+}
+
+.chefs .card {
+  display: flex;
+  flex-direction: row;
+}
+
+.chefs .card .chefImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chefs .card .chefImage img {
+  width: 6.4rem;
+  height: 6.4rem;
+  margin-right: 1.6rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.chefs .card .chefInfo .nameChef {
+  margin-bottom: 0.5rem;
+}
+
+.chefs .card .chefInfo .qtdRecipes {
+  margin-top: 0;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.chefInfo .editLink {
+  margin-top: 0;
+}
+
+.chefInfo .editLink a {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.chefAvatar {
+  display: flex;
+  justify-content: center;
+}
+
+.chefAvatar img {
+  margin-top: 2rem;
+  display: flex;
+  border-radius: 50%;
+  width: 20rem;
+  height: 20rem;
+  object-fit: cover;
+}
+
+.chefAdminInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 0.8rem;
+}
+
+.chefAdminInfo h1.chefName {
+  font-size: 3.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.chefAdminInfo p {
+  margin: 0;
+  color: #777777;
+}
+
+/* Chef Avatar */
+
+.upload_chef {
+  position: relative;
+  width: 13rem;
+  height: 3.7rem;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+}
+
+.upload_chef p {
+  position: absolute;
+  color: white;
+  font-weight: normal;
+}

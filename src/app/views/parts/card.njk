@@ -1,0 +1,8 @@
+{% macro render(title, classes) %}
+    <section class="admin {{ classes }}">
+        <div class="info">
+            <h1>{{ title }}</h1>
+        </div>
+        {{ caller() }}
+    </section>
+{% endmacro %}

@@ -1,11 +1,12 @@
 {% extends '../layout.njk' %}
+{% import '../../parts/card.njk' as card %}
 {% block content %}
+    {% call card.render('Criando receita ') %}
+    <div class="buttonsPages">
+        <input form="form" type="submit" class="button submit" value="Salvar receita"></div>
+    </div>
     <form id="form" method="POST" action="/admin/recipes" class="content admin" enctype="multipart/form-data">
-        <div class="info">
-            <h1>Criando Receita</h1>
-            <div class="options">
-                <input form="form" type="submit" class="button" value="Salvar receita"></div>
-            </div>
-            {% include './fields.njk' %}
-        </form>
-    {% endblock content %}
+        {% include './fields.njk' %}
+    </form>
+    {%endcall%}
+{% endblock content %}

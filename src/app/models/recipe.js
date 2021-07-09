@@ -1,6 +1,9 @@
 const db = require("../../config/db");
+const Base = require("./base");
 
+Base.init({ table: "recipes" });
 module.exports = {
+  ...Base,
   async all(limit, filter) {
     try {
       let queryFilter = ``;
@@ -8,7 +11,7 @@ module.exports = {
       let query = ``;
 
       if (limit) {
-        queryLimit = `LIMIT ${limit}`;
+        queryLimit = `LIMIT ${limit} `;
       }
 
       if (filter) {
@@ -22,41 +25,14 @@ module.exports = {
       FROM recipes
       LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
       ${queryFilter}
+      ORDER BY recipes.created_at 
       ${queryLimit}
-      ORDER BY created_at
+      
       `;
 
       const results = await db.query(query);
+
       return results.rows;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  async create(recipe) {
-    try {
-      const query = `
-            INSERT INTO recipes(
-                title,
-                ingredients,
-                preparation,
-                information,
-                chef_id,
-                created_at
-            ) values (
-                $1, $2, $3, $4, $5, NOW()
-            ) RETURNING ID
-            `;
-      const data = [
-        recipe.title,
-        recipe.ingredients,
-        recipe.preparation,
-        recipe.information,
-        recipe.chef_id,
-      ];
-
-      const results = await db.query(query, data);
-
-      return results.rows[0].id;
     } catch (err) {
       console.log(err);
     }
@@ -70,41 +46,6 @@ module.exports = {
       WHERE recipes.id=${id}
       `);
       return results.rows[0];
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  async update(recipe) {
-    try {
-      const query = `
-            UPDATE recipes SET
-                title = $1,
-                ingredients = $2,
-                preparation = $3,
-                information = $4
-                WHERE id = $5
-            `;
-      const data = [
-        recipe.title,
-        recipe.ingredients,
-        recipe.preparation,
-        recipe.information,
-        recipe.id,
-      ];
-
-      const results = await db.query(query, data);
-
-      return;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  async delete(id) {
-    try {
-      const query = `DELETE FROM recipes WHERE id=$1`;
-      const data = [Number(id)];
-      await db.query(query, data);
-      return;
     } catch (err) {
       console.log(err);
     }

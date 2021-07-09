@@ -1,0 +1,18 @@
+{% extends '../layout.njk' %}
+{% import '../../parts/card.njk' as card %}
+{% block content %}
+    {% call card.render('Atualizar usuário') %}
+    <div class="buttonsPages">
+        {% if user.id != userId %}
+            <input form="formDelete" type="submit" class="button delete" value="Deletar"/>
+        {% endif %}
+        <input form="form" type="submit" class="button submit" value="Salvar"/>
+    </div>
+    <form id="form" method="POST" action="/admin/users/{{ user.id }}?_method=PUT" class="content">
+        {% include './fields.njk' %}
+    </form>
+    {% if user.id != userId %}
+        <form id="formDelete" method="POST" action="/admin/users/{{ user.id }}?_method=delete" class="content admin"></form>
+    {% endif %}
+    {% endcall %}
+{% endblock content %}

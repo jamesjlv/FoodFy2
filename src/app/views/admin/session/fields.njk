@@ -1,0 +1,16 @@
+<div class="items login">
+    <div class="item">
+        <p>E-mail</p>
+        <input value="{{ user.email }}" placeholder="Digite seu e-mail" type="text" name="email" {% if error %} class="error" onfocusout='focusRemove.classRemove(this)' {% endif %}/>
+    </div>
+    <div class="item">
+        <p>Senha</p>
+        <input type="password" placeholder="Digite sua senha" name="password" {% if error %} class="error" onfocusout='focusRemove.classRemove(this)' {% endif %}/>
+    </div>
+    {% if token %}
+        <div class="item">
+            <p>Repita a senha</p>
+            <input type="password" placeholder="Repita sua senha" name="passwordRepeat" {% if error %} class="error" onfocusout='focusRemove.classRemove(this)' {% endif %}/>
+        </div>
+    {% endif %}
+</div>

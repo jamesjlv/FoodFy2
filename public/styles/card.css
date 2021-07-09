@@ -1,0 +1,82 @@
+section.admin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 8rem 1fr;
+  max-width: 94rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.info {
+  grid-column-start: 1;
+  display: flex;
+  align-items: center;
+}
+
+.buttonsPages {
+  grid-column-start: 2;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.content {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.button.submit {
+  height: 3.7rem;
+  padding: 0 3.2rem;
+  border: 0;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 0.4rem;
+  font-weight: bold;
+  letter-spacing: 0.04rem;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  align-items: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.button.delete {
+  height: 3.7rem;
+  padding: 0 3.2rem;
+  border: 0;
+  background-color: var(--button-delete);
+  color: white;
+  border-radius: 0.4rem;
+  font-weight: bold;
+  letter-spacing: 0.04rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.button.cancel {
+  height: 3.7rem;
+  padding: 0 3.2rem;
+  border: 0;
+  background-color: #777;
+  color: white;
+  border-radius: 0.4rem;
+  font-weight: bold;
+  letter-spacing: 0.04rem;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  align-items: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+}

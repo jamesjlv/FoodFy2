@@ -1,0 +1,65 @@
+.content.admin.session {
+  max-width: 50rem;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.session .options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 2.4rem;
+  align-items: center;
+}
+
+.session .options a {
+  color: #969696;
+  background: none;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.session .options a:hover {
+  text-decoration: underline;
+}
+
+.session .options input.button {
+  background: var(--primary-color);
+  border: none;
+  width: 13.4rem;
+  height: 3.4rem;
+  box-sizing: border-box;
+  color: white;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+header#session {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100vw;
+  padding: 4.8rem;
+}
+
+.session .info h1 {
+  width: 100%;
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+header.admin .links {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header.admin .links > a {
+  padding: 0;
+  margin: 0;
+}

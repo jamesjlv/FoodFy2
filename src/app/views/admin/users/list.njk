@@ -1,0 +1,35 @@
+{% extends '../layout.njk' %}
+{% import '../../parts/card.njk' as card %}
+{% block content %}
+    {% call card.render('Usuários') %}
+    <div class="buttonsPages">
+        {% if isAdmin %}
+            <a href="/admin/users/create" class="button submit">Novo</a>
+        {% endif %}
+    </div>
+    <div class="content users">
+        <div class="cards">
+            {% for user in users %}
+                <div class="card" id="{{ user.id }}">
+                    <div class="userInfo">
+                        <p class="userName">
+                            {{ user.name }}
+                        </p>
+                        <span class="userEmail">
+                            {{ user.email }}
+                        </span>
+                        {% if isAdmin %}
+                            <span class="editLink">
+                                <a href="/admin/users/{{ user.id }}/edit">Visualizar</a>
+                                <form action="/admin/users/{{ user.id }}?_method=DELETE" method="POST">
+                                    <input type="submit" value="Remover"/>
+                                </form>
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endcall %}
+{% endblock content %}

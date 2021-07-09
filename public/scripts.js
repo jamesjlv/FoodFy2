@@ -103,14 +103,6 @@ const PhotosUpload = {
   },
 };
 
-const cards = document.querySelectorAll(".card");
-
-for (let card of cards) {
-  card.addEventListener("click", () => {
-    window.location.href = `/recipe/${card.id}`;
-  });
-}
-
 const ImageGallery = {
   highlight: document.querySelector(".recipeImage > img"),
   previews: document.querySelectorAll(".miniPhotos img"),

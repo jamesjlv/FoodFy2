@@ -1,13 +1,15 @@
-{% extends "../layout.njk" %}
-{% block pageName %}
-    {{ recipe.title }}
-{% endblock %}
+{% extends '../layout.njk' %}
+{% import '../../parts/card.njk' as card %}
 {% block content %}
-    <div class="content admin">
-        <div class="info">
-            <h1>Receita: {{ recipe.title }}</h1>
-            <a href="/admin/recipes/{{ recipe.id }}/edit" class="button">Editar receita</a>
-        </div>
+    {% call card.render('Receita: '+recipe.title) %}
+    <div class="buttonsPages">
+        {% if recipe.user_id == userId %}
+            <a href="/admin/recipes/{{ recipe.id }}/edit" class="button submit">Editar receita</a>
+        {% elseif isAdmin %}
+            <a href="/admin/recipes/{{ recipe.id }}/edit" class="button submit">Editar receita</a>
+        {% endif %}
+    </div>
+    <div class="content">
         <div class="recipe">
             <div class="recipeImage">
                 <img src="{{ files[0].src }}" alt="{{ recipe.title }}"/>
@@ -51,6 +53,7 @@
             </div>
         </section>
     </div>
+    {% endcall %}
 {% endblock %}
 {% block scripts %}
     <script src="/recipeShowAndHide.js"></script>

@@ -1,6 +1,9 @@
 const db = require("../../config/db");
+const Base = require("./base");
+Base.init({ table: "chefs" });
 
 module.exports = {
+  ...Base,
   async all(filter) {
     try {
       let queryFilter = ``;
@@ -31,26 +34,6 @@ module.exports = {
       console.log(err);
     }
   },
-  async create(chef) {
-    try {
-      const query = `
-            INSERT INTO chefs(
-                name,
-                file_id,
-                created_at             
-            ) values (
-                $1, $2, NOW()
-            ) RETURNING ID
-            `;
-      const data = [chef.name, chef.fileId];
-
-      const results = await db.query(query, data);
-
-      return results.rows[0].id;
-    } catch (err) {
-      console.log(err);
-    }
-  },
   async find(id) {
     try {
       const results = await db.query(`SELECT chefs.*,
@@ -63,44 +46,6 @@ LEFT JOIN files ON (files.id = chefs.file_id)
       
       `);
       return results.rows[0];
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  async update(chef) {
-    try {
-      let query = ``;
-      let data = [];
-      if (chef.fileId) {
-        query = `
-              UPDATE chefs SET
-                  name = $1,
-                  file_id = $2
-                  WHERE id = $3
-              `;
-        data = [chef.name, chef.fileId, chef.id];
-      } else {
-        query = `
-              UPDATE chefs SET
-                  name = $1
-                  WHERE id = $2
-              `;
-        data = [chef.name, chef.id];
-      }
-
-      const results = await db.query(query, data);
-
-      return;
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  async delete(id) {
-    try {
-      const query = `DELETE FROM chefs WHERE id=$1`;
-      const data = [Number(id)];
-      await db.query(query, data);
-      return;
     } catch (err) {
       console.log(err);
     }

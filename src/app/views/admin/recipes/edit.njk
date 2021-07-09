@@ -1,17 +1,17 @@
 {% extends '../layout.njk' %}
+{% import '../../parts/card.njk' as card %}
 {% block content %}
-    <div class="content admin">
-        <div class="info">
-            <h1>Editando receita</h1>
-            <div class="options">
-                <input type="submit" form="delete" class="buttonDelete" value="Excluir"/>
-                <input type="submit" form="form" class="button" value="Salvar receita"/>
-            </div>
-        </div>
+    {% call card.render('Editando Receita') %}
+    <div class="buttonsPages">
+        <input type="submit" form="form" class="button submit" value="Salvar receita"/>
+        <input type="submit" form="delete" class="button delete" value="Deletar"/>
+    </div>
+    <div class="content">
         <form id="form" method="post" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
             {% include './fields.njk' %} <input type="hidden" name="id" value="{{ recipe.id }}"/></form>
         <form id="delete" method="post" action="/admin/recipes?_method=delete">
             <input type="hidden" name="id" value="{{ recipe.id }}"/>
         </form>
     </div>
+    {% endcall %}
 {% endblock content %}

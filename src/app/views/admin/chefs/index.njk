@@ -1,9 +1,13 @@
 {% extends '../layout.njk' %}
+{% import '../../parts/card.njk' as card %}
 {% block content %}
+    {% call card.render('Gerenciar Chefs ') %}
+    <div class="buttonsPages">
+        {% if isAdmin %}
+            <a href="/admin/chefs/create" class="button submit">Novo</a>
+        {% endif %}
+    </div>
     <div class="content">
-        <div class="title">
-            <p>Gerenciar chefs</p>
-        </div>
         <div class="cards chefs">
             {% for chef in chefs %}
                 <div class="card" id="{{ chef.id }}">
@@ -25,4 +29,5 @@
                 {% endfor %}
             </div>
         </div>
+        {% endcall %}
     {% endblock content %}

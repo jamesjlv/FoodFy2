@@ -1,0 +1,57 @@
+.message.error {
+  display: flex;
+  visibility: hidden;
+  z-index: 1;
+  width: 344px;
+  height: 135px;
+  background: var(--button-delete);
+  color: white;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  border-radius: 4px;
+  opacity: 0;
+  animation-name: showMessage;
+  animation-duration: 4s;
+  animation-timing-function: cubic-bezier(0.58, 0.01, 1, 0.06);
+}
+
+.message.sucess {
+  display: flex;
+  width: 344px;
+  height: 135px;
+  z-index: 1;
+  background: #01b12a;
+  color: white;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  border-radius: 4px;
+  opacity: 0;
+  animation-name: showMessage;
+  animation-duration: 4s;
+  animation-timing-function: cubic-bezier(0.58, 0.01, 1, 0.06);
+}
+
+input.error {
+  border-color: var(--button-delete);
+}
+
+@keyframes showMessage {
+  from {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  to {
+    opacity: 0;
+    display: none;
+  }
+}

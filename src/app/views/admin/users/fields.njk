@@ -1,0 +1,14 @@
+<div class="items" id="users-form">
+    <div class="item">
+        <p>Nome</p>
+        <input type="text" value="{{ user.name }}" placeholder="Informe seu nome" name="name"/>
+    </div>
+    <div class="item">
+        <p>E-mail</p>
+        <input value="{{ user.email }}" placeholder="Informe seu e-mail" type="text" name="email"/>
+    </div>
+    <div class="item" id="checkbox">
+        <input type="checkbox" name="is_admin" {% if user.is_admin == true %} checked="checked" {% endif %}/>
+        <p>Administrador</p>
+    </div>
+</div>
