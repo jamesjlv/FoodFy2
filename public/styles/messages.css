@@ -1,3 +1,5 @@
+/* Messages PopUp */
+
 .message.error {
   display: flex;
   visibility: hidden;
@@ -54,4 +56,16 @@ input.error {
     opacity: 0;
     display: none;
   }
+}
+
+/* Messages input validate */
+
+input.inputError {
+  border-color: var(--button-delete);
+}
+.item .error {
+  position: absolute;
+  font-size: 1.4rem;
+  margin-top: 0.4rem;
+  color: var(--button-delete);
 }

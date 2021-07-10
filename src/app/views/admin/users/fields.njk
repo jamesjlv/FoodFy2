@@ -5,7 +5,7 @@
     </div>
     <div class="item">
         <p>E-mail</p>
-        <input value="{{ user.email }}" placeholder="Informe seu e-mail" type="text" name="email"/>
+        <input value="{{ user.email }}" placeholder="Informe seu e-mail" type="text" name="email" onkeypress="Validate.init(this, 'isEmail')"/>
     </div>
     <div class="item" id="checkbox">
         <input type="checkbox" name="is_admin" {% if user.is_admin == true %} checked="checked" {% endif %}/>

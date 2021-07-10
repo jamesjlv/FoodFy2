@@ -4,7 +4,7 @@
     {% call card.render('Editando Receita') %}
     <div class="buttonsPages">
         <input type="submit" form="form" class="button submit" value="Salvar receita"/>
-        <input type="submit" form="delete" class="button delete" value="Deletar"/>
+        <input type="submit" form="delete" class="button delete" onclick="confirmationEvent.delete(event)" value="Deletar"/>
     </div>
     <div class="content">
         <form id="form" method="post" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">

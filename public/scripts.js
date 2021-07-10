@@ -116,3 +116,58 @@ const ImageGallery = {
     ImageGallery.highlight.src = target.src;
   },
 };
+
+const confirmationEvent = {
+  delete(event) {
+    let confirmation = confirm(
+      "Você tem certeza que deseja excluir esse registro?"
+    );
+    if (confirmation == false) {
+      event.preventDefault();
+    }
+  },
+};
+
+const Validate = {
+  init(event, func) {
+    setTimeout(() => {
+      Validate.clearErrors(event);
+      let results = Validate[func](event.value);
+      event.value = results.value;
+
+      if (results.error) {
+        Validate.displayError(event, results.error);
+      }
+    }, 1);
+  },
+  displayError(input, error) {
+    const div = document.createElement("div");
+    div.classList.add("error");
+    div.innerHTML = error;
+    input.parentNode.appendChild(div);
+    input.classList.add("inputError");
+    input.focus();
+  },
+  clearErrors(input) {
+    const errorDiv = input.parentNode.querySelector(".error");
+
+    if (errorDiv) {
+      errorDiv.remove();
+      input.classList.remove("inputError");
+    }
+  },
+  isEmail(value) {
+    let error = null;
+    const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if (!value.match(mailFormat)) {
+      error = "Email inválido";
+    }
+    return {
+      error,
+      value,
+    };
+
+    console.log(event);
+  },
+};

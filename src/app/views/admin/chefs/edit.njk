@@ -4,7 +4,7 @@
     {% call card.render('Editanto chef') %}
     <div class="buttonsPages reverse">
         <input type="submit" form="form" class="button submit" value="Salvar chef"/>
-        <input type="submit" form="delete" class="button delete" value="Excluir"/>
+        <input type="submit" form="delete" class="button delete" onclick="confirmationEvent.delete(event)" value="Excluir"/>
     </div>
     <div class="content">
         <form id="form" method="post" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
