@@ -23,6 +23,7 @@
 
 .message.sucess {
   display: flex;
+  visibility: hidden;
   width: 344px;
   height: 135px;
   z-index: 1;
@@ -55,6 +56,7 @@ input.error {
   to {
     opacity: 0;
     display: none;
+    visibility: hidden;
   }
 }
 

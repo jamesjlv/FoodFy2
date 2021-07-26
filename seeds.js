@@ -82,9 +82,13 @@ async function createRecipes() {
 }
 
 async function runSeed() {
-  await createUsers();
-  await createChefs();
-  await createRecipes();
+  try {
+    await createUsers();
+    await createChefs();
+    await createRecipes();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 runSeed();

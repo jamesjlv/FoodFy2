@@ -6,7 +6,7 @@
         <p>Avatar</p>
         <div class="upload_chef">
             <p>Enviar Avatar</p>
-            <input class="button" type="file" name="photos" accept="image/*"/>
+            <input class="button" type="file" name="photos" accept="image/*" {% if chef.id == '' %} required="required" {% endif %}/>
         </div>
     </div>
 </div>

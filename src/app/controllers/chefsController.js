@@ -16,9 +16,15 @@ module.exports = {
       }
       const isAdmin = req.session.isAdmin;
 
+      let sucess = "";
+      if (req.query.sucess) {
+        sucess = req.query.sucess;
+      }
+
       return res.render("admin/chefs/index", {
         chefs,
         isAdmin,
+        sucess,
       });
     } catch (err) {
       console.log(err);
@@ -54,10 +60,16 @@ module.exports = {
           ""
         )}`;
       }
+      let sucess = "";
+      if (req.query.sucess) {
+        sucess = "Chef criado com sucesso";
+      }
+
       return res.render("admin/chefs/show", {
         chef,
         recipes,
         isAdmin: req.session.isAdmin,
+        sucess,
       });
     } catch (err) {
       console.log(err);
@@ -67,6 +79,7 @@ module.exports = {
     try {
       const id = req.params.id;
       const chef = await Chef.find(id);
+      let sucess = "";
       res.render("admin/chefs/edit", { chef });
     } catch (err) {
       console.log(err);
@@ -77,7 +90,7 @@ module.exports = {
       const fileId = await File.chefCreate({ ...req.files[0] });
       req.body.file_id = fileId;
       const chefId = await Chef.create(req.body);
-      return res.redirect(`/admin/chefs/${chefId}`);
+      return res.redirect(`/admin/chefs/${chefId}?sucess=ok`);
     } catch (err) {
       console.log(err);
     }
@@ -97,8 +110,11 @@ module.exports = {
         name: req.body.name,
         file_id: fileId,
       });
-
-      return res.redirect(`/admin/chefs/${id}`);
+      // req.body.chef.id = req.params.id;
+      return res.render(`admin/chefs/edit`, {
+        chef: req.body,
+        sucess: "Atualizado com sucesso",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -111,7 +127,7 @@ module.exports = {
       if (chef.file_id) {
         await File.chefDelete(chef.file_id);
       }
-      return res.redirect("/admin/chefs");
+      return res.redirect("/admin/chefs?sucess=Chef deletado com sucesso");
     } catch (err) {
       console.log(err);
     }

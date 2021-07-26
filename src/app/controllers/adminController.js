@@ -19,9 +19,14 @@ module.exports = {
           }${image.path.replace("public", "")}`;
         });
       }
+      let sucess = "";
+      if (req.query.sucess) {
+        sucess = req.query.sucess;
+      }
 
       return res.render("admin/recipes/index", {
         recipes,
+        sucess,
       });
     } catch (err) {
       console.log(err);
@@ -51,12 +56,17 @@ module.exports = {
           )}`,
         });
       });
+      let sucess = "";
+      if (req.query.sucess) {
+        sucess = req.query.sucess;
+      }
 
       res.render("admin/recipes/show", {
         recipe,
         files,
         userId: req.session.userId,
         isAdmin: req.session.isAdmin,
+        sucess,
       });
     } catch (err) {
       console.log(err);
@@ -100,7 +110,9 @@ module.exports = {
 
       await Promise.all(filesPromise);
 
-      return res.redirect(`/admin/recipes/${recipeId}`);
+      return res.redirect(
+        `/admin/recipes/${recipeId}?sucess=Receita criada com sucesso`
+      );
     } catch (err) {
       console.log(err);
     }
@@ -131,7 +143,9 @@ module.exports = {
       }
 
       const recipeId = await Recipe.update(id, req.body);
-      return res.redirect(`/admin/recipes/${id}`);
+      return res.redirect(
+        `/admin/recipes/${id}?sucess=Receita atualizada com sucesso`
+      );
     } catch (err) {
       console.log(err);
     }
@@ -148,7 +162,7 @@ module.exports = {
       Promise.all(imagesPromise);
 
       await Recipe.delete(id);
-      return res.redirect("/admin/recipes");
+      return res.redirect("/admin/recipes?sucess=Receita excluida com sucesso");
     } catch (err) {
       console.log(err);
     }

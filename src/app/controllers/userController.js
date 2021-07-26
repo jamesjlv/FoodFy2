@@ -8,9 +8,14 @@ module.exports = {
     try {
       const users = await User.findAll();
 
+      let sucess = "";
+      if (req.query.sucess) {
+        sucess = req.query.sucess;
+      }
       return res.render("admin/users/list", {
         users,
         isAdmin: req.session.isAdmin,
+        sucess,
       });
     } catch (err) {
       console.log(err);
@@ -52,7 +57,7 @@ module.exports = {
         `,
       });
 
-      return res.redirect(`/admin/users/${userId}/edit`);
+      return res.redirect(`/admin/users/${userId}/edit?sucess=ok`);
     } catch (err) {
       res.render("admin/users/create", {
         error: "Não foi possivel cadastrar o usuário",
@@ -63,10 +68,14 @@ module.exports = {
   async edit(req, res) {
     try {
       const user = await User.findOne(req.params.id);
-
+      let sucess = "";
+      if (req.query.sucess) {
+        sucess = "Usuário criado com sucesso";
+      }
       return res.render("admin/users/edit", {
         user,
         userId: req.session.userId,
+        sucess,
       });
     } catch (err) {
       res.render("admin/users/edit", {
@@ -90,7 +99,16 @@ module.exports = {
         is_admin: is_admin || false,
       });
 
-      return res.redirect(`/admin/users/${req.params.id}/edit`);
+      const user = {
+        ...req.body,
+        id: req.params.id,
+      };
+
+      return res.render("admin/users/edit", {
+        user,
+        userId: req.session.userId,
+        sucess: "Usuário atualizado",
+      });
     } catch (err) {
       res.render("admin/users/edit", {
         user: req.body,
@@ -101,7 +119,7 @@ module.exports = {
   async delete(req, res) {
     try {
       await User.delete(req.params.id);
-      return res.redirect("/admin/users");
+      return res.redirect("/admin/users?sucess=Usuário deletado com sucesso");
     } catch (err) {
       console.log(err);
       return res.render(`admin/users/edit`, {

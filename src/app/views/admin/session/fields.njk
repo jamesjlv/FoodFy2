@@ -1,7 +1,7 @@
 <div class="items login">
     <div class="item">
         <p>E-mail</p>
-        <input value="{{ user.email }}" placeholder="Digite seu e-mail" type="text" name="email" {% if error %} class="error" onfocusout='focusRemove.classRemove(this)' {% endif %} onfocusout="Validate.init(this, 'isEmail')"/>
+        <input value="{{ user.email }}" placeholder="Digite seu e-mail" type="text" name="email" {% if error %} class="error" onfocusout='focusRemove.classRemove(this)' {% endif %} onkeydown="Validate.init(this, 'isEmail')"/>
     </div>
     <div class="item">
         <p>Senha</p>

@@ -22,7 +22,7 @@
                             <span class="editLink">
                                 <a href="/admin/users/{{ user.id }}/edit">Visualizar</a>
                                 <form action="/admin/users/{{ user.id }}?_method=DELETE" method="POST">
-                                    <input type="submit" value="Remover"/>
+                                    <input type="submit" value="Remover" onclick="confirmationEvent.delete(event)"/>
                                 </form>
                             </span>
                         {% endif %}
